@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/besedi/together-ai-home/internal/srv"
+	"github.com/besedi/key-server/internal/srv"
 	"github.com/spf13/cobra"
 )
 
