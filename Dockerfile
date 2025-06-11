@@ -1,10 +1,10 @@
-FROM golang:1.24.1
+FROM golang:1.24.1 AS build
 WORKDIR /app
 COPY go.mod ./
 RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /key-server ./cmd/main.go
-# Create and switch to a non-root user
-RUN useradd -m appuser
-USER appuser
+
+FROM gcr.io/distroless/static-debian12
+COPY --from=build /key-server /
 CMD ["/key-server"]
