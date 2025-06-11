@@ -6,6 +6,8 @@ _              ____  ______     __
 |   <  __/ |_| |___) |  _ < \ V /
 |_|\_\___|\__, |____/|_| \_\ \_/
          |___/
+
+A lightweight and secure key server
 ```
 ## Quick start
 > go run cmd/main.go --max-size 999 --srv-port 8000
