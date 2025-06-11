@@ -26,8 +26,8 @@ func Serve(size int, port int) {
 	metrics.Init(size)
 
 	// handlers
-	http.Handle("GET /key/{len}", metrics.WithMetrics(withRecovery(keyHandler(size))))
-	http.Handle("GET /key/", metrics.WithMetrics(withRecovery(defaultHandler(size))))
+	http.Handle("GET /key/{len}", metrics.WithMetrics(withRecovery(KeyHandler(size))))
+	http.Handle("GET /key/", metrics.WithMetrics(withRecovery(DefaultHandler(size))))
 	http.Handle("/metrics", metrics.MetricsHandler())
 
 	srv := "0.0.0.0:" + strconv.Itoa(port)
@@ -36,13 +36,13 @@ func Serve(size int, port int) {
 	log.Fatal(http.ListenAndServe(srv, nil))
 }
 
-func defaultHandler(size int) http.HandlerFunc {
+func DefaultHandler(size int) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/key/"+strconv.Itoa(size), http.StatusFound)
 	}
 }
 
-func keyHandler(size int) http.HandlerFunc {
+func KeyHandler(size int) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/plain")
 		len := r.PathValue("len")
