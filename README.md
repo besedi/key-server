@@ -17,3 +17,6 @@ A lightweight and secure key server
 > docker run -p 1123:1123 besedi/key-server
 ### Push image to Dockerhub
 > docker push besedi/key-server
+
+## Helm
+helm upgrade -i -f helm/values.yaml key-server helm -n YOUR_NAMESPACE

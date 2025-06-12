@@ -29,6 +29,12 @@ func Serve(size int, port int) {
 	http.Handle("GET /key/{len}", metrics.WithMetrics(withRecovery(KeyHandler(size))))
 	http.Handle("GET /key/", metrics.WithMetrics(withRecovery(DefaultHandler(size))))
 	http.Handle("/metrics", metrics.MetricsHandler())
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+	http.HandleFunc("/ready", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
 
 	srv := "0.0.0.0:" + strconv.Itoa(port)
 	fmt.Println("Max key size is " + strconv.Itoa(size))
