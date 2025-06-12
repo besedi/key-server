@@ -5,6 +5,7 @@
 name: key-server
 saName: key-server-sa
 containerPort: 1123
+KEYSIZE: 1024
 
 image:
   name: "docker.io/besedi/key-server:latest"

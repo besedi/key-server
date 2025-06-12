@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/besedi/key-server/internal/metrics"
@@ -23,6 +24,9 @@ func withRecovery(h http.Handler) http.Handler {
 }
 
 func Serve(size int, port int) {
+	if s, err := strconv.Atoi(os.Getenv("KEYSIZE")); err == nil {
+		size = s
+	}
 	metrics.Init(size)
 
 	// handlers

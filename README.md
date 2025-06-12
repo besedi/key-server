@@ -9,6 +9,9 @@ _              ____  ______     __
 
 A lightweight and secure key server
 ```
+## Description
+Simple server which generates key with given length in binary format
+
 ## Quick start
 > go run cmd/main.go --max-size 999 --srv-port 8000
 ### Build
@@ -19,4 +22,4 @@ A lightweight and secure key server
 > docker push besedi/key-server
 
 ## Helm
-helm upgrade -i -f helm/values.yaml key-server helm -n YOUR_NAMESPACE
+helm upgrade -i -f helm/values.yaml key-server helm/ -n YOUR_NAMESPACE

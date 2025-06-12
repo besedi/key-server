@@ -19,6 +19,9 @@ spec:
       containers:
         - name: {{ .Values.name }}
           image: {{ .Values.image.name }}
+          env:
+            - name: KEYSIZE
+              value: {{ .Values.KEYSIZE }}
           ports:
             - containerPort: {{ .Values.containerPort }}
           livenessProbe:
