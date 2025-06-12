@@ -23,3 +23,7 @@ Simple server which generates key with given length in binary format
 
 ## Helm
 helm upgrade -i -f helm/values.yaml key-server helm/ -n YOUR_NAMESPACE
+
+## Monitoring
+- Alert on high rate of 4XX/5XX codes
+- Alert when the 70th, 90th, or 99th percentile of key length distribution exceeds defined thresholds
