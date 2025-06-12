@@ -1,0 +1,26 @@
+# Default values for proxy.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: key-server
+saName: key-server-sa
+containerPort: 1123
+KEYSIZE: 1024
+
+image:
+  name: "docker.io/besedi/key-server:latest"
+service:
+  app: key-server
+  name: key-server
+  type: LoadBalancer
+
+replicaCount: 3
+
+resources:
+  keySRV:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
