@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.service.app }}
+  labels:
+    app: {{ .Values.service.app }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.service.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service.app }}
+        app.kubernetes.io/name: {{ .Values.service.app }}
+    spec:
+      serviceAccountName: {{ .Values.saName }}
+      containers:
+        - name: {{ .Values.name }}
+          image: {{ .Values.image.name }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.containerPort }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            limits:
+              cpu: {{ .Values.resources.keySRV.limits.cpu }}
+              memory: {{ .Values.resources.keySRV.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.keySRV.requests.cpu }}
+              memory: {{ .Values.resources.keySRV.requests.memory }}
